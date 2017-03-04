@@ -24,35 +24,36 @@ var connector = new builder.ChatConnector({
     appPassword: "YfcxWVbDegqr6n5uVdrZ9Bg"
 });
 var bot = new builder.UniversalBot(connector);
-server.post('/api/messages', connector.listen());
+server.use(restify.bodyParser({ mapParams: false }));
+server.post('/api/messages', function(req,res,next){console.log(req.body);next();},connector.listen());
 
 //=========================================================
 // Bots Dialogs
 //=========================================================
 bot.dialog('/', intents);
 
-// intents.matches(/request/i, [
-//     function (session) {
-//         session.beginDialog('/request');
-//     },
-//     function (session, results) {
-//         session.send('Thanks for your question ,it was lovely chatting with you:)');
-//     }
-// ]);
+intents.matches(/request/i, [
+    function (session) {
+        session.beginDialog('/request');
+    },
+    function (session, results) {
+        session.send('Thanks for your question ,it was lovely chatting with you:)');
+    }
+]);
 
 
 intents.onDefault([
      function (session) {
        if(!session.userData.name){
-               session.beginDialog('/request');
+               session.beginDialog('/getName');
        }
        else{
-             session.beginDialog('/request');
+             session.beginDialog('/redirect');
        }
        
     },
     function (session, results) {
-        session.send('Thanks for your question ,it was lovely chatting with you:)');
+      
     }
 ]);
 
@@ -61,7 +62,6 @@ bot.dialog('/request', [
         builder.Prompts.choice(session, "Whom do you want to raise request for?", ["Myself", "Some one else"]);
     },
     function (session, results) {
-      console.log(results.response.entity)
         session.userData.answerforRequest = results.response.entity;
         if(session.userData.answerforRequest=="Myself"){
           builder.Prompts.text(session,'login with your username and password ,click on request for self on the side menu.Tell me when your done :)');
