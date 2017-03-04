@@ -31,14 +31,14 @@ server.post('/api/messages', connector.listen());
 //=========================================================
 bot.dialog('/', intents);
 
-intents.matches(/request/i, [
-    function (session) {
-        session.beginDialog('/request');
-    },
-    function (session, results) {
-        session.send('Thanks for your question ,it was lovely chatting with you:)');
-    }
-]);
+// intents.matches(/request/i, [
+//     function (session) {
+//         session.beginDialog('/request');
+//     },
+//     function (session, results) {
+//         session.send('Thanks for your question ,it was lovely chatting with you:)');
+//     }
+// ]);
 
 
 intents.onDefault([
