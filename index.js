@@ -61,6 +61,7 @@ bot.dialog('/request', [
         builder.Prompts.choice(session, "Whom do you want to raise request for?", ["Myself", "Some one else"]);
     },
     function (session, results) {
+      console.log(results.response.entity)
         session.userData.answerforRequest = results.response.entity;
         if(session.userData.answerforRequest=="Myself"){
           builder.Prompts.text(session,'login with your username and password ,click on request for self on the side menu.Tell me when your done :)');
