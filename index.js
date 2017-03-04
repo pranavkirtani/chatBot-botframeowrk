@@ -44,10 +44,10 @@ intents.matches(/request/i, [
 intents.onDefault([
      function (session) {
        if(!session.userData.name){
-               session.beginDialog('/getName');
+               session.beginDialog('/request');
        }
        else{
-             session.beginDialog('/redirect');
+             session.beginDialog('/request');
        }
        
     },
