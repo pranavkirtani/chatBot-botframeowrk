@@ -107,7 +107,7 @@ bot.dialog('/getName',[
 bot.dialog('/redirect', [
   function (session,results) {
 
-          session.send('Nice to meet you %s ,currently we can answer questions related only to request feature, if you wanna know about requests just say the word.',session.userData.name);
+          session.send('Hi  %s ,currently we can answer questions related only to request feature, if you wanna know about requests just say the word.',session.userData.name);
           session.endDialog();
     }
 
