@@ -14,9 +14,14 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 });
   
 // Create chat bot
+// var connector = new builder.ChatConnector({
+//     appId:"70fff0fb-b4e2-4cb4-b173-7ed7a039b1de",
+//     appPassword: "jWA2rdit691u8MgRvLCEPfY"
+// });
+
 var connector = new builder.ChatConnector({
-    appId:"70fff0fb-b4e2-4cb4-b173-7ed7a039b1de",
-    appPassword: "jWA2rdit691u8MgRvLCEPfY"
+    appId:"a674f5b8-4bba-49a2-87ab-7fddf4fe6e27",
+    appPassword: "YfcxWVbDegqr6n5uVdrZ9Bg"
 });
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
