@@ -52,7 +52,7 @@ intents.onDefault([
        
     },
     function (session, results) {
-      
+        session.send('Thanks for your question ,it was lovely chatting with you:)');
     }
 ]);
 
