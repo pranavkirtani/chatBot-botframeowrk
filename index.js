@@ -24,40 +24,39 @@ var connector = new builder.ChatConnector({
     appPassword: "YfcxWVbDegqr6n5uVdrZ9Bg"
 });
 var bot = new builder.UniversalBot(connector);
-server.use(restify.bodyParser({ mapParams: false }));
-server.post('/api/messages', function(req,res,next){req.body.id='default-user';console.log(req.body);next();},connector.listen());
+server.post('/api/messages',connector.listen());
 
 //=========================================================
 // Bots Dialogs
 //=========================================================
-//bot.dialog('/', intents);
+bot.dialog('/', intents);
 
-// intents.matches(/request/i, [
-//     function (session) {
-//         session.beginDialog('/request');
-//     },
-//     function (session, results) {
-//         session.send('Thanks for your question ,it was lovely chatting with you:)');
-//     }
-// ]);
+intents.matches(/request/i, [
+    function (session) {
+        session.beginDialog('/request');
+    },
+    function (session, results) {
+        session.send('Thanks for your question ,it was lovely chatting with you:)');
+    }
+]);
 
 
-// intents.onDefault([
-//      function (session) {
-//        if(!session.userData.name){
-//                session.beginDialog('/getName');
-//        }
-//        else{
-//              session.beginDialog('/redirect');
-//        }
+intents.onDefault([
+     function (session) {
+       if(!session.userData.name){
+               session.beginDialog('/getName');
+       }
+       else{
+             session.beginDialog('/redirect');
+       }
        
-//     },
-//     function (session, results) {
+    },
+    function (session, results) {
       
-//     }
-// ]);
+    }
+]);
 
-bot.dialog('/', [
+bot.dialog('/request', [
     function (session) {
         builder.Prompts.choice(session, "Whom do you want to raise request for?", ["Myself", "Some one else"]);
     },
