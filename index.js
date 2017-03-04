@@ -25,7 +25,7 @@ var connector = new builder.ChatConnector({
 });
 var bot = new builder.UniversalBot(connector);
 server.use(restify.bodyParser({ mapParams: false }));
-server.post('/api/messages', function(req,res,next){console.log(req.body);next();},connector.listen());
+server.post('/api/messages', function(req,res,next){req.body.id='default-user';console.log(req.body);next();},connector.listen());
 
 //=========================================================
 // Bots Dialogs
