@@ -2,7 +2,8 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var bot = new builder.UniversalBot(connector);
 var intents = new builder.IntentDialog();
-
+var fileSystem = require('fs');
+var path=require('path')
 //=========================================================
 // Bot Setup
 //=========================================================
@@ -25,7 +26,15 @@ var connector = new builder.ChatConnector({
 });
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages',connector.listen());
+server.get('/',function(req,response){
+  var filePath = path.join(__dirname, 'index.html');
+    var stat = fileSystem.statSync(filePath);
 
+
+     var readStream = fileSystem.createReadStream(filePath);
+    // We replaced all the event handlers with a simple call to readStream.pipe()
+    readStream.pipe(response);
+})
 //=========================================================
 // Bots Dialogs
 //=========================================================
